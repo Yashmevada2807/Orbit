@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose"
 import bcrypt from "bcryptjs";
+import { ApiError } from "../utils/api-error.js";
 
 
 const userSchema = new Schema({
@@ -69,14 +70,14 @@ const userSchema = new Schema({
 
 // hooks
 userSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return next()
+    if(!this.isModified("password")) return
 
         try {
             const salt = await bcrypt.genSalt(10);
             this.password = await bcrypt.hash(this.password, salt)
             next()
         } catch (error) {
-            next(error)
+            new ApiError(500)
         }
 })
 
