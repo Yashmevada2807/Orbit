@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose"
 import bcrypt from "bcryptjs";
 import { ApiError } from "../utils/api-error.js";
+import jwt from "jsonwebtoken";
+import crypto from "crypto"
 
 
 const userSchema = new Schema({
@@ -25,8 +27,8 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        trim:true,
-        lowercase:true
+        trim: true,
+        lowercase: true
     },
     password: {
         type: String,
@@ -41,44 +43,95 @@ const userSchema = new Schema({
         type: String,
         trim: true
     },
-    bio:{
-        type:String,
-        maxlength: [500, 'Bio cannot exceed 500 characters'] 
+    bio: {
+        type: String,
+        maxlength: [500, 'Bio cannot exceed 500 characters']
     },
-    skills:{
-        type:[String],
-        default:[]
+    skills: {
+        type: [String],
+        default: []
     },
-    githublink:{
-        type:String,
+    githublink: {
+        type: String,
     },
-    linkedinlink:{
-       type:String,
+    linkedinlink: {
+        type: String,
     },
-    portfolio:{
-        type:String,
+    portfolio: {
+        type: String,
     },
-    accesstoken:{
-        type:String
+    isEmailVerified: {
+        type: Boolean
     },
-    refreshtoken:{
-        type:String
+    emailverificationToken: {
+        type: String,
+        default: false
+    },
+    emailVerificationExpiry: {
+        type: Date
+    },
+    refreshtoken: {
+        type: String
     }
-},{
-    timestamps:true
+}, {
+    timestamps: true
 })
 
-// hooks
-userSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return
+// methods
 
-        try {
-            const salt = await bcrypt.genSalt(10);
-            this.password = await bcrypt.hash(this.password, salt)
-            next()
-        } catch (error) {
-            new ApiError(500)
-        }
+userSchema.methods.generateAccessToken = function () {
+    return jwt
+        .sign(
+            {
+                _id: this._id,
+                email: this.email,
+                username: this.username
+            },
+            process.env.ACCESS_TOKEN_SECRET,
+            {
+                expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN
+            }
+        )
+}
+
+userSchema.methods.generateRefreshToken = function () {
+    return jwt
+        .sign(
+            { _id: this._id, },
+            process.env.REFRESH_TOKEN_SECRET,
+            {
+                expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN
+            }
+        )
+}
+
+
+userSchema.methods.generateEmailVerificationToken = function () {
+    const unHashedToken = crypto.randomBytes("32").toString("hex")
+
+    const hashedToken = crypto.hash("sha256", unHashedToken, "hex")
+
+    const tokenExpiry = Date.now() + 1000 * 60 * 60;
+
+    this.emailverificationToken = hashedToken
+    this.emailVerificationExpiry = tokenExpiry
+
+    return {unHashedToken, hashedToken, tokenExpiry}
+}
+
+
+
+// hooks
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) return
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt)
+        next()
+    } catch (error) {
+        new ApiError(500)
+    }
 })
 
 
