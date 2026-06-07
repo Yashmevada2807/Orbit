@@ -113,9 +113,6 @@ userSchema.methods.generateEmailVerificationToken = function () {
 
     const tokenExpiry = Date.now() + 1000 * 60 * 60;
 
-    this.emailverificationToken = hashedToken
-    this.emailVerificationExpiry = tokenExpiry
-
     return { unHashedToken, hashedToken, tokenExpiry }
 }
 
