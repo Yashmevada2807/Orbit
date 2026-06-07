@@ -116,7 +116,7 @@ userSchema.methods.generateEmailVerificationToken = function () {
     this.emailverificationToken = hashedToken
     this.emailVerificationExpiry = tokenExpiry
 
-    return {unHashedToken, hashedToken, tokenExpiry}
+    return { unHashedToken, hashedToken, tokenExpiry }
 }
 
 
