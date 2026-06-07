@@ -8,8 +8,8 @@ import { User } from "../models/user.model.js"
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body
 
-    const user = await User.findOne({email})
-    if(user) throw new ApiError(400, "User already registered");
+    const user = await User.findOne({ email })
+    if (user) throw new ApiError(400, "User already registered");
 
     const newUser = await User.create({
         username,
@@ -17,10 +17,15 @@ const registerUser = asyncHandler(async (req, res) => {
         password
     })
 
-    res.status(200).json(new ApiResponse(200, newUser,"user register successfully"))
+    res.status(200).json(new ApiResponse(200, newUser, "user register successfully"))
 
 
 })
 
 
-export { registerUser }
+const verifyUser = asyncHandler(async (req, res) => {
+    
+})
+
+
+export { registerUser,verifyUser }
