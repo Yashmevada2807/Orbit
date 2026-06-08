@@ -1,5 +1,9 @@
-import nodemailer from "nodemailer"
+import dotenv from "dotenv";
 
+dotenv.config();
+import nodemailer from "nodemailer"
+console.log(process.env.EMAIL_USER);
+console.log(process.env.EMAIL_PASS);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -10,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendVerificationEmail = async ({
   email,
-  name,
+  username,
   verificationUrl,
 }) => {
   const html = `
@@ -57,7 +61,7 @@ export const sendVerificationEmail = async ({
                 <td style="padding:40px;">
                   
                   <h2 style="margin-top:0;">
-                    Hello ${name},
+                    Hello ${username},
                   </h2>
 
                   <p style="font-size:16px;line-height:1.6;color:#444;">
@@ -84,7 +88,7 @@ export const sendVerificationEmail = async ({
                   </div>
 
                   <p style="font-size:14px;color:#666;">
-                    This verification link will expire in 10 minutes.
+                    This verification link will expire in 1 hour.
                   </p>
 
                   <p style="font-size:14px;color:#666;">
