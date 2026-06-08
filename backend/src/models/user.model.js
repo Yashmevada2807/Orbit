@@ -61,11 +61,11 @@ const userSchema = new Schema({
         type: String,
     },
     isEmailVerified: {
-        type: Boolean
-    },
-    emailverificationToken: {
-        type: String,
+        type: Boolean,
         default: false
+    },
+    emailVerificationToken: {
+        type: String,
     },
     emailVerificationExpiry: {
         type: Date
@@ -107,7 +107,7 @@ userSchema.methods.generateRefreshToken = function () {
 
 
 userSchema.methods.generateEmailVerificationToken = function () {
-    const unHashedToken = crypto.randomBytes("32").toString("hex")
+    const unHashedToken = crypto.randomBytes(32).toString("hex")
 
     const hashedToken = crypto.hash("sha256", unHashedToken, "hex")
 
