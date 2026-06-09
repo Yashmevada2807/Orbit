@@ -116,8 +116,6 @@ userSchema.methods.generateEmailVerificationToken = function () {
     return { unHashedToken, hashedToken, tokenExpiry }
 }
 
-
-
 // hooks
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return
