@@ -76,12 +76,12 @@ const verifyUser = asyncHandler(async (req, res) => {
         emailVerificationToken: hashedToken,
         emailVerificationExpiry: { $gt: Date.now() }
     })
-    if (!user) throw new ApiError(400, "This link is invalid or has already been used. Please try logging in.")
+    if (!user) throw new ApiError(400, "This link is expired or has already been used. Please try logging in.")
     user.isEmailVerified = true
     user.emailVerificationToken = undefined;
     user.emailVerificationExpiry = undefined;
 
-    await user.save({ validateBeforeSave: false })
+    await user.save()
 
     res.status(200).json(
         new ApiResponse(
@@ -106,7 +106,7 @@ const resendEmailVerificationLink = asyncHandler(async (req, res) => {
 
     user.emailVerificationToken = hashedToken
     user.emailVerificationExpiry = tokenExpiry
-    await user.save({validateBeforeSave: false})
+    await user.save({ validateBeforeSave: false })
     const verificationUrl =
         `http://localhost:3000/api/v1/auth/verify-email/${unHashedToken}`;
 
