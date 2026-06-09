@@ -21,10 +21,13 @@ app.use(cors({
 
 import healthCheckRouter from "./routes/healthcheck.route.js"
 import authRouter from "./routes/auth.route.js"
+import profileRouter from "./routes/profile.route.js"
 
 app.use("/api/v1/healthcheck", healthCheckRouter )
 
 app.use("/api/v1/auth", authRouter)
+
+app.use("/api/v1/profiles", profileRouter)
 
 app.get("/", (req, res) => {
     res.send("hello dev");
