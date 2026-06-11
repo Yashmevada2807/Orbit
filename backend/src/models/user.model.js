@@ -78,7 +78,6 @@ const userSchema = new Schema({
 })
 
 // methods
-
 userSchema.methods.generateAccessToken = function () {
     return jwt
         .sign(
@@ -104,7 +103,6 @@ userSchema.methods.generateRefreshToken = function () {
             }
         )
 }
-
 
 userSchema.methods.generateEmailVerificationToken = function () {
     const unHashedToken = crypto.randomBytes(32).toString("hex")
