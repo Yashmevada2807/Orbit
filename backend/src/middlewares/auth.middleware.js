@@ -8,7 +8,7 @@ export const verifyJWT = async (req, res, next) => {
 
     const token = req.cookies?.accesstoken || req.header("Authorization")?.replace("Bearer ", "")
 
-    if (!token) throw new ApiError(400, "unauthorized request")
+    if (!token) throw new ApiError(400, "unauthorized request, please login first")
 
     const decodedToken = jwt.verify(
         token,
