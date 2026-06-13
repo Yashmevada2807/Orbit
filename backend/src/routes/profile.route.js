@@ -7,7 +7,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router()
 
-router.route("/profile").post(verifyJWT, upload.single("avatar"), createProfile)
+router.route("/").post(verifyJWT, upload.single("avatar"), createProfile)
 
 
 export default router
