@@ -20,7 +20,7 @@ const projectSchema = new Schema({
         maxlength: [1500, "cannot exceed 1500 characters"]
     },
     enddate: {
-        type: Date.now()
+        type: Date
     },
     members: [
         {
