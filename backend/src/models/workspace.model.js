@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 
 const workSpaceSchema = new Schema({
-    workspacename: {
+    name: {
         type: String,
         required: true,
         unique: true,
@@ -13,7 +13,7 @@ const workSpaceSchema = new Schema({
         optional: true,
         maxlength: [500, 'cannot exceed 500 characters']
     },
-    workspaceOwner: {
+    owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
     },
