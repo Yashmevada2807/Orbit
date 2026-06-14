@@ -17,6 +17,10 @@ const taskSchema = new Schema({
         required: true,
         unique: true,
     },
+    description: {
+        type: String,
+        maxlength: [300, "description should be short"]
+    },
     assignedto: [
         {
             type: Schema.Types.ObjectId,
@@ -27,6 +31,9 @@ const taskSchema = new Schema({
         type: String,
         enum: PriorityEnum,
     }
-})
+},
+    {
+        timestamps: true
+    })
 
 export const Task = mongoose.model("Task", taskSchema)
