@@ -24,10 +24,13 @@ import authRouter from "./routes/auth.route.js"
 import profileRouter from "./routes/profile.route.js"
 import workSpaceRouter from "./routes/workspace.route.js"
 import projectRouter from "./routes/project.route.js"
+import userRouter from "./routes/user.route.js"
 
 app.use("/api/v1/healthcheck", healthCheckRouter )
 
 app.use("/api/v1/auth", authRouter)
+
+app.use("/api/v1/users", userRouter)
 
 app.use("/api/v1/profiles", profileRouter)
 
