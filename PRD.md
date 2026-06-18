@@ -386,10 +386,6 @@ Base URL:
 
 **POST** `/auth/refresh-token`
 
-### Get Current User
-
-**GET** `/auth/me`
-
 ---
 
 ## Users
@@ -397,10 +393,6 @@ Base URL:
 ### Get All Users
 
 **GET** `/users`
-
-### Get User By ID
-
-**GET** `/users/:userId`
 
 ---
 
@@ -418,9 +410,9 @@ Base URL:
 
 **PUT** `/profiles/me`
 
-### Get Profile By User ID
+### Get Profile By Username
 
-**GET** `/profiles/:userId`
+**GET** `/profiles/:Username`
 
 ---
 
