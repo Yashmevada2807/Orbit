@@ -29,5 +29,83 @@ const createWorkspace = asyncHandler(async (req, res) => {
         )
 })
 
+const getWorkspace = asyncHandler(async (req, res) => {
+    const workspace = await WorkSpace.find()
 
-export { createWorkspace }
+    if (!workspace) throw new ApiError(404, "Workspace does not exist")
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                workspace,
+                "workspaces fetched successfully"
+            )
+        )
+})
+
+const getWorkspaceById = asyncHandler(async (req, res) => {
+
+    const { workspaceId } = req.params
+
+    const workspace = await WorkSpace.findById(workspaceId)
+
+    if (!workspace) throw new ApiError(404, "Workspace does not exist")
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                workspace,
+                "Workspace fetched successfully"
+            )
+        )
+
+})
+
+const updateWorkspace = asyncHandler(async (req, res) => {
+
+    const { name, description } = req.body
+    const { workspaceId } = req.params
+
+    const updatedWorkspace = await WorkSpace.findById(workspaceId)
+
+    updatedWorkspace.name = name
+    updatedWorkspace.description = description
+
+    await updatedWorkspace.save()
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                updatedWorkspace,
+                "Workspace updated successfully"
+            )
+        )
+
+})
+
+const getProjects = asyncHandler(async (req, res) => {
+
+    const { workspaceId } = req.params
+
+    const projects = await WorkSpace.findById(workspaceId).populate({ path: "projects", select: "-members -tasks -description -enddate" })
+
+    if (!projects) throw new ApiError(404, "project does not exist")
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                projects.projects
+            )
+        )
+})
+
+
+export { createWorkspace, getProjects, getWorkspace, getWorkspaceById, updateWorkspace }
