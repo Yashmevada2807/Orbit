@@ -5,6 +5,7 @@ import { User } from "../models/user.model.js"
 import { sendVerificationEmail } from "../utils/send-verification-email.js";
 import crypto from "crypto"
 import bcrypt from "bcryptjs";
+import { userInfo } from "os";
 
 const generateAccessTokenAndRefreshToken = async (userId) => {
     try {
@@ -167,5 +168,37 @@ const loginUser = asyncHandler(async (req, res) => {
 
 })
 
+const logoutUser = asyncHandler(async (req, res) => {
 
-export { registerUser, verifyUser, loginUser, resendEmailVerificationLink }
+    const user = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $unset:{
+                refreshtoken: 0
+            }
+        }
+    )
+
+    if (!user) {
+        throw new ApiError(404, "User not found")
+    }
+
+    const options = {
+        httpOnly:true,
+        secure:true
+    }
+
+    return res
+        .status(200)
+        .clearCookie("accesstoken", options)
+        .clearCookie("refreshtoken", options)
+        .json(
+            new ApiResponse(
+                200,
+                {},
+                "logout successfull"
+            )
+        )
+})
+
+export { registerUser, verifyUser, loginUser, resendEmailVerificationLink, logoutUser }
