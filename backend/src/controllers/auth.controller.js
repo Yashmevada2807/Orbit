@@ -201,4 +201,7 @@ const logoutUser = asyncHandler(async (req, res) => {
         )
 })
 
+// Refresh Access Token
+// POST /auth/refresh-token
+
 export { registerUser, verifyUser, loginUser, resendEmailVerificationLink, logoutUser }
