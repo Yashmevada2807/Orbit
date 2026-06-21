@@ -112,4 +112,29 @@ const addMember = asyncHandler(async (req, res) => {
         )
 })
 
+
+// Get Project Members
+// GET /projects/:projectId/members
+
+// Update Project Member Role
+// PATCH /projects/:projectId/members/:memberId
+
+// Remove Project Member
+// DELETE /projects/:projectId/members/:memberId
+
+// Get All Tasks in Project
+// GET /projects/:projectId/tasks
+
+// Get Task By ID
+// GET /projects/:projectId/tasks/:taskId
+
+// Update Task
+// PUT /projects/:projectId/tasks/:taskId
+
+// Update Task Status
+// PATCH /projects/:projectId/tasks/:taskId/status
+
+// Delete Task
+// DELETE /projects/:projectId/tasks/:taskId
+
 export { createProject, addTask, addMember }
