@@ -1,7 +1,9 @@
+import { Project } from "../models/project.model.js"
 import { WorkSpace } from "../models/workspace.model.js"
 import { ApiError } from "../utils/api-error.js"
 import { ApiResponse } from "../utils/api-response.js"
 import { asyncHandler } from "../utils/async-handler.js"
+import { ProjectEnum } from "../utils/project.enum.js"
 
 
 const createWorkspace = asyncHandler(async (req, res) => {
@@ -107,5 +109,82 @@ const getProjects = asyncHandler(async (req, res) => {
         )
 })
 
+const getProjectById = asyncHandler(async (req, res) => {
 
-export { createWorkspace, getProjects, getWorkspace, getWorkspaceById, updateWorkspace }
+    const { workspaceId, projectId } = req.params
+
+    if (!workspaceId) throw new ApiError(404, "invalid workspaceId")
+
+    const project = await Project.findById(projectId)
+
+    if (!project) throw new ApiError(404, "Invalid projectId or project does not exist")
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                project,
+                "project fetched successfully"
+            )
+        )
+
+})
+
+const updateProject = asyncHandler(async (req, res) => {
+
+    const { name, description } = req.body
+    const { workspaceId, projectId } = req.params
+
+    if (!workspaceId) throw new ApiError(404, "invalid workspaceId")
+
+    const project = await Project.findByIdAndUpdate(
+        projectId,
+        {
+            $set: {
+                ...(name && { name }),
+                ...(description && { description })
+            }
+        },
+        {
+            new: true,
+            runValidators: true
+        }
+
+    )
+
+    if (!project) throw new ApiError(404, "invalid projectId or project does not exist")
+
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                project,
+                "project Update successfully"
+            )
+        )
+
+})
+
+// Delete Workspace
+// DELETE /workspaces/:workspaceId
+
+// Delete Project
+// DELETE /workspaces/:workspaceId/projects/:projectId
+
+// Workspace Members
+// Add Member to Workspace
+// POST /workspaces/:workspaceId/members
+
+// Get Workspace Members
+// GET /workspaces/:workspaceId/members
+
+// Update Member Role
+// PATCH /workspaces/:workspaceId/members/:memberId
+
+// Remove Member
+// DELETE /workspaces/:workspaceId/members/:memberId
+
+export { createWorkspace, getProjects, getWorkspace, getWorkspaceById, updateWorkspace, getProjectById, updateProject }
