@@ -27,8 +27,8 @@ const Header = () => {
                 </ul>
             </div>
             <div className="button text-white flex gap-4 justify-center items-center">
-                <button className='px-4 py-2  cursor-pointer rounded-md border-gray-600 border-2'>Login</button>
-                <button className='px-4 py-2  cursor-pointer rounded-md border-blue-900 border-2 bg-blue-800'>Get Started</button>
+                <button className='px-4 py-2  cursor-pointer rounded-md border-slate-700 border hover:bg-slate-800 transition'>Login</button>
+                <button className='px-4 py-2  cursor-pointer rounded-md  bg-indigo-600 hover:bg-indigo-500 transition'>Get Started</button>
             </div>
         </nav>
     )

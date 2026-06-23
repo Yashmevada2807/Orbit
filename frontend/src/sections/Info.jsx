@@ -3,9 +3,9 @@ import React from 'react'
 const Info = () => {
   return (
     <div className='text-white  w-full px-6 pt-18 flex '>
-      <div className='  px-6 py-1 w-1/2  '>
-        <p className='rounded-md border-2 border-blue-950 w-fit px-4 py-1 text-lg font-bold text-blue-800 font-sans'>Build For Developers, By Developers</p>
-        <div className='text-8xl tracking-tight leading-none py-6'>
+      <div className='leftSide px-6 py-1 w-1/2  '>
+        <p className='rounded-md border border-blue-950 w-fit px-4 py-1 text-lg font-semibold text-blue-800 font-sans'>Build For Developers, By Developers</p>
+        <div className='text-8xl tracking-tighter font-semibold leading-none py-6'>
           <h1 className="">Build Together</h1>
           <h1 className="text-blue-800">Ship Faster</h1>
         </div>
@@ -31,7 +31,7 @@ const Info = () => {
           </button>
         </div>
       </div>
-      <div className=' px-5 py-2 w-1/2 flex justify-center items-center '>
+      <div className='rightSide px-6 py-1 w-1/2 flex justify-center items-center '>
         <h1>This is Right Side</h1>
       </div>
     </div>
