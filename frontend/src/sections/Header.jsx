@@ -19,7 +19,7 @@ const Header = () => {
                 <ul className='flex gap-18 px-4 py-2 text-xl '>
                     {
                         li.map((cont, id) => (
-                            <li key={id} className='cursor-pointer'>
+                            <li key={id} className='cursor-pointer  transition duration-700 hover:underline underline-offset-3 '>
                                 {cont}
                             </li>
                         ))
