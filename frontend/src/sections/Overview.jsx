@@ -19,7 +19,7 @@ const OverviewCardInfo = [{
 const Overview = () => {
     return (
         <div className="mt-7 pt-12">
-            <h1 className="text-white flex justify-center items-center text-5xl">What is Orbit?</h1>
+            <h1 className="text-white text-center text-5xl">What is Orbit?</h1>
             <div className="flex gap-4 justify-evenly items-center  py-20">
                 {
                     OverviewCardInfo.map((info, id) => (
