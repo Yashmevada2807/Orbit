@@ -1,8 +1,9 @@
 import React from 'react'
+import orbit from "../assets/orbit.jpg"
 
 const Info = () => {
   return (
-    <div className='text-white  w-full px-6 pt-18 flex '>
+    <div className='text-white w-full px-6 pt-18 flex '>
       <div className='leftSide px-6 py-1 w-1/2  '>
         <p className='rounded-md border border-blue-950 w-fit px-4 py-1 text-lg font-semibold text-blue-800 font-sans'>Build For Developers, By Developers</p>
         <div className='text-8xl tracking-tighter font-semibold leading-none py-6'>
@@ -31,8 +32,12 @@ const Info = () => {
           </button>
         </div>
       </div>
-      <div className='rightSide px-6 py-1 w-1/2 flex justify-center items-center '>
-        <h1>This is Right Side</h1>
+      <div className='rightSide px-6 py-1 w-1/2 flex justify-center items-center object-cover'>
+        <img 
+        className='object-cover w-2xl max-h-122.5'
+        src={orbit}
+        alt="" 
+        />
       </div>
     </div>
   )
