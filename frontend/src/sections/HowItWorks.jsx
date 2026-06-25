@@ -55,9 +55,9 @@ function HowItWorks() {
 
 
           {
-            steps.map((step,index)=>(
-              
-              <div 
+            steps.map((step, index) => (
+
+              <div
                 key={index}
                 className="text-center"
               >
